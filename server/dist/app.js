@@ -7,26 +7,36 @@ const express_1 = __importDefault(require("express"));
 const cors_1 = __importDefault(require("cors"));
 const helmet_1 = __importDefault(require("helmet"));
 const morgan_1 = __importDefault(require("morgan"));
+const path_1 = __importDefault(require("path"));
 const product_routes_1 = __importDefault(require("./routes/product.routes"));
 const auth_routes_1 = __importDefault(require("./routes/auth.routes"));
 const cart_routes_1 = __importDefault(require("./routes/cart.routes"));
-const path_1 = __importDefault(require("path"));
-const error_middleware_1 = require("./middleware/error.middleware");
 const order_routes_1 = __importDefault(require("./routes/order.routes"));
 const upload_routes_1 = __importDefault(require("./routes/upload.routes"));
 const admin_routes_1 = __importDefault(require("./routes/admin.routes"));
+const payment_routes_1 = __importDefault(require("./routes/payment.routes"));
+const error_middleware_1 = require("./middleware/error.middleware");
 const notFound_middleware_1 = require("./middleware/notFound.middleware");
+const payment_controller_1 = require("./controllers/payment.controller");
 const swagger_ui_express_1 = __importDefault(require("swagger-ui-express"));
 const swagger_1 = __importDefault(require("./config/swagger"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
-app.use((0, helmet_1.default)());
+app.use((0, helmet_1.default)({
+    crossOriginResourcePolicy: {
+        policy: 'cross-origin',
+    },
+}));
 app.use((0, morgan_1.default)('dev'));
+app.post('/api/payments/webhook', express_1.default.raw({
+    type: 'application/json',
+}), payment_controller_1.stripeWebhook);
 app.use(express_1.default.json());
 app.use('/api/products', product_routes_1.default);
 app.use('/api/cart', cart_routes_1.default);
 app.use('/docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.default));
 app.use('/api/orders', order_routes_1.default);
+app.use('/api/payments', payment_routes_1.default);
 app.get('/', (_req, res) => {
     res.json({
         message: 'API Running',

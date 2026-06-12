@@ -33,14 +33,10 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrder = exports.getMyOrders = exports.checkout = void 0;
+exports.getOrder = exports.getMyOrders = void 0;
 const OrderService = __importStar(require("../services/order.service"));
 const asyncHandler_1 = require("../utils/asyncHandler");
 const AppError_1 = require("../utils/AppError");
-exports.checkout = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
-    const order = await OrderService.checkout(req.user.id);
-    res.status(201).json(order);
-});
 exports.getMyOrders = (0, asyncHandler_1.asyncHandler)(async (req, res) => {
     const orders = await OrderService.getMyOrders(req.user.id);
     res.json(orders);

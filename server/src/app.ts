@@ -10,9 +10,12 @@ import cartRoutes from './routes/cart.routes';
 import orderRoutes from './routes/order.routes';
 import uploadRoutes from './routes/upload.routes';
 import adminRoutes from './routes/admin.routes';
+import paymentRoutes from './routes/payment.routes';
 
 import { errorHandler } from './middleware/error.middleware';
 import { notFound } from './middleware/notFound.middleware';
+
+import { stripeWebhook } from './controllers/payment.controller';
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocument from './config/swagger';
@@ -30,6 +33,14 @@ app.use(
 );
 
 app.use(morgan('dev'));
+
+app.post(
+  '/api/payments/webhook',
+  express.raw({
+    type: 'application/json',
+  }),
+  stripeWebhook
+);
 
 app.use(express.json());
 
@@ -52,6 +63,11 @@ app.use(
 app.use(
   '/api/orders',
   orderRoutes
+);
+
+app.use(
+  '/api/payments',
+  paymentRoutes
 );
 
 app.get('/', (_req, res) => {

@@ -23,6 +23,17 @@ export const errorHandler = (
     });
   }
 
+  if (
+    err.name ===
+    'PrismaClientInitializationError'
+  ) {
+    return res.status(503).json({
+      success: false,
+      message:
+        'Database unavailable',
+    });
+  }
+
   return res.status(500).json({
     success: false,
     message:

@@ -63,6 +63,9 @@ const emptyForm: ProductFormState = {
   image: '',
 };
 
+const inputClass =
+  'min-h-11 rounded-lg border border-slate-200 bg-white px-4 py-2 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-emerald-400 focus:ring-4 focus:ring-emerald-100';
+
 export default function DashboardPage() {
   const [
     stats,
@@ -110,7 +113,13 @@ export default function DashboardPage() {
   ] = useState(false);
 
   const loadAdminData =
-    useCallback(async () => {
+    useCallback(async (
+      showLoading = false
+    ) => {
+      if (showLoading) {
+        setLoading(true);
+      }
+
       try {
         const [
           dashboard,
@@ -137,8 +146,43 @@ export default function DashboardPage() {
     }, []);
 
   useEffect(() => {
-    loadAdminData();
-  }, [loadAdminData]);
+    let active = true;
+
+    Promise.all([
+      getDashboardStats(),
+      getProducts({
+        page: 1,
+        limit: 100,
+      }),
+    ])
+      .then(([
+        dashboard,
+        productResult,
+      ]) => {
+        if (!active) {
+          return;
+        }
+
+        setStats(dashboard);
+        setProducts(
+          productResult.products
+        );
+      })
+      .catch(() => {
+        toast.error(
+          'Cannot load admin data'
+        );
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const updateField = (
     field: keyof ProductFormState,
@@ -267,57 +311,69 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="empty-state">
+      <div className="grid min-h-56 place-items-center rounded-lg border border-slate-200 bg-white p-8 text-center text-sm font-bold text-slate-500 shadow-sm">
         Loading dashboard...
       </div>
     );
   }
 
   return (
-    <section className="page-section">
-      <div className="page-heading">
+    <section className="grid gap-6">
+      <div className="flex flex-wrap items-end justify-between gap-4">
         <div>
-          <span className="eyebrow">
+          <span className="inline-flex rounded-lg bg-rose-50 px-3 py-1.5 text-xs font-black uppercase tracking-normal text-rose-700 ring-1 ring-rose-100">
             Admin
           </span>
-          <h1>Dashboard</h1>
+          <h1 className="mt-3 text-3xl font-black tracking-normal text-slate-950 sm:text-5xl">
+            Dashboard
+          </h1>
         </div>
 
         <button
           type="button"
-          className="secondary-button"
-          onClick={loadAdminData}
+          className="inline-flex min-h-10 items-center justify-center gap-2 rounded-lg border border-slate-200 bg-white px-4 py-2 text-sm font-bold text-slate-700 shadow-sm transition hover:border-slate-300 hover:bg-slate-50"
+          onClick={() =>
+            loadAdminData(true)
+          }
         >
           <RefreshCw size={16} />
           Refresh
         </button>
       </div>
 
-      <div className="stat-grid">
-        <div className="stat-tile">
-          <span>Users</span>
-          <strong>
+      <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <span className="text-sm font-black text-slate-500">
+            Users
+          </span>
+          <strong className="mt-2 block text-3xl font-black text-slate-950">
             {stats?.totalUsers ?? 0}
           </strong>
         </div>
 
-        <div className="stat-tile">
-          <span>Products</span>
-          <strong>
+        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <span className="text-sm font-black text-slate-500">
+            Products
+          </span>
+          <strong className="mt-2 block text-3xl font-black text-emerald-700">
             {stats?.totalProducts ?? 0}
           </strong>
         </div>
 
-        <div className="stat-tile">
-          <span>Orders</span>
-          <strong>
+        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <span className="text-sm font-black text-slate-500">
+            Orders
+          </span>
+          <strong className="mt-2 block text-3xl font-black text-amber-700">
             {stats?.totalOrders ?? 0}
           </strong>
         </div>
 
-        <div className="stat-tile">
-          <span>Revenue</span>
-          <strong>
+        <div className="rounded-lg border border-slate-200 bg-white p-5 shadow-sm">
+          <span className="text-sm font-black text-slate-500">
+            Revenue
+          </span>
+          <strong className="mt-2 block text-3xl font-black text-rose-700">
             {formatPrice(
               stats?.totalRevenue ?? 0
             )}
@@ -325,13 +381,13 @@ export default function DashboardPage() {
         </div>
       </div>
 
-      <div className="admin-grid">
+      <div className="grid gap-6 xl:grid-cols-[380px_minmax(0,1fr)] xl:items-start">
         <form
-          className="admin-panel stack-form"
+          className="grid gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm"
           onSubmit={handleSubmit}
         >
-          <div className="panel-heading">
-            <h2>
+          <div className="flex items-center justify-between gap-3">
+            <h2 className="text-xl font-black text-slate-950">
               {editingId
                 ? 'Edit Product'
                 : 'New Product'}
@@ -340,7 +396,7 @@ export default function DashboardPage() {
             {editingId && (
               <button
                 type="button"
-                className="icon-button"
+                className="grid size-10 place-items-center rounded-lg border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50"
                 onClick={resetForm}
                 title="Cancel"
               >
@@ -349,9 +405,10 @@ export default function DashboardPage() {
             )}
           </div>
 
-          <label>
+          <label className="grid gap-2 text-sm font-black text-slate-700">
             Title
             <input
+              className={inputClass}
               value={form.title}
               onChange={(event) =>
                 updateField(
@@ -364,9 +421,10 @@ export default function DashboardPage() {
             />
           </label>
 
-          <label>
+          <label className="grid gap-2 text-sm font-black text-slate-700">
             Description
             <textarea
+              className={`${inputClass} min-h-28 resize-y`}
               value={form.description}
               onChange={(event) =>
                 updateField(
@@ -379,10 +437,11 @@ export default function DashboardPage() {
             />
           </label>
 
-          <div className="form-row">
-            <label>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <label className="grid gap-2 text-sm font-black text-slate-700">
               Price
               <input
+                className={inputClass}
                 type="number"
                 min="0"
                 step="0.01"
@@ -397,9 +456,10 @@ export default function DashboardPage() {
               />
             </label>
 
-            <label>
+            <label className="grid gap-2 text-sm font-black text-slate-700">
               Stock
               <input
+                className={inputClass}
                 type="number"
                 min="0"
                 value={form.stock}
@@ -414,9 +474,10 @@ export default function DashboardPage() {
             </label>
           </div>
 
-          <label>
+          <label className="grid gap-2 text-sm font-black text-slate-700">
             Image URL
             <input
+              className={inputClass}
               value={form.image}
               onChange={(event) =>
                 updateField(
@@ -427,14 +488,15 @@ export default function DashboardPage() {
             />
           </label>
 
-          <label className="file-input">
+          <label className="relative flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-lg border border-dashed border-emerald-300 bg-emerald-50 px-4 py-2 text-sm font-black text-emerald-700 transition hover:bg-emerald-100">
             <Upload size={18} />
-            <span>
+            <span className="truncate">
               {imageFile
                 ? imageFile.name
                 : 'Upload image'}
             </span>
             <input
+              className="absolute inset-0 cursor-pointer opacity-0"
               type="file"
               accept="image/png,image/jpeg,image/webp"
               onChange={(event) =>
@@ -448,7 +510,7 @@ export default function DashboardPage() {
 
           <button
             type="submit"
-            className="primary-button wide-button"
+            className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-black text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={saving}
           >
             {editingId ? (
@@ -464,12 +526,14 @@ export default function DashboardPage() {
           </button>
         </form>
 
-        <div className="admin-panel">
-          <div className="panel-heading">
-            <h2>Products</h2>
+        <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+          <div className="flex items-center justify-between gap-3 border-b border-slate-200 p-5">
+            <h2 className="text-xl font-black text-slate-950">
+              Products
+            </h2>
           </div>
 
-          <div className="admin-table">
+          <div className="divide-y divide-slate-200">
             {products.map(
               (product) => {
                 const imageUrl =
@@ -479,37 +543,37 @@ export default function DashboardPage() {
 
                 return (
                   <article
-                    className="admin-product-row"
+                    className="grid gap-3 p-4 transition hover:bg-slate-50 sm:grid-cols-[4rem_minmax(0,1fr)_auto] sm:items-center"
                     key={product.id}
                   >
-                    <div className="admin-product-image">
+                    <div className="grid size-16 place-items-center overflow-hidden rounded-lg bg-gradient-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400">
                       {imageUrl ? (
                         <img
                           src={imageUrl}
                           alt={product.title}
+                          className="h-full w-full object-cover"
                         />
                       ) : (
                         <Package size={24} />
                       )}
                     </div>
 
-                    <div>
-                      <strong>
+                    <div className="min-w-0">
+                      <strong className="block truncate text-base font-black text-slate-950">
                         {product.title}
                       </strong>
-                      <span className="muted">
+                      <span className="block truncate text-sm font-bold text-slate-500">
                         {formatPrice(
                           product.price
                         )}{' '}
-                        · Stock{' '}
-                        {product.stock}
+                        - Stock {product.stock}
                       </span>
                     </div>
 
-                    <div className="row-tools">
+                    <div className="flex gap-2">
                       <button
                         type="button"
-                        className="icon-button"
+                        className="grid size-10 place-items-center rounded-lg border border-slate-200 bg-white text-slate-700 transition hover:bg-slate-50"
                         onClick={() =>
                           startEdit(product)
                         }
@@ -520,7 +584,7 @@ export default function DashboardPage() {
 
                       <button
                         type="button"
-                        className="icon-button danger"
+                        className="grid size-10 place-items-center rounded-lg border border-rose-100 bg-rose-50 text-rose-700 transition hover:bg-rose-100"
                         onClick={() =>
                           handleDelete(
                             product.id
@@ -541,31 +605,33 @@ export default function DashboardPage() {
 
       {stats?.recentOrders &&
         stats.recentOrders.length > 0 && (
-          <div className="admin-panel">
-            <div className="panel-heading">
-              <h2>Recent Orders</h2>
+          <div className="overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm">
+            <div className="border-b border-slate-200 p-5">
+              <h2 className="text-xl font-black text-slate-950">
+                Recent Orders
+              </h2>
             </div>
 
-            <div className="order-list">
+            <div className="divide-y divide-slate-200">
               {stats.recentOrders.map(
                 (order) => (
                   <div
-                    className="order-row"
+                    className="grid gap-3 p-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-center"
                     key={order.id}
                   >
-                    <div>
-                      <strong>
+                    <div className="min-w-0">
+                      <strong className="block text-base font-black text-slate-950">
                         Order #{order.id}
                       </strong>
-                      <span className="muted">
-                        {order.user.name} ·{' '}
+                      <span className="block truncate text-sm font-bold text-slate-500">
+                        {order.user.name} -{' '}
                         {formatDate(
                           order.createdAt
                         )}
                       </span>
                     </div>
 
-                    <strong>
+                    <strong className="text-base font-black text-emerald-700">
                       {formatPrice(
                         order.totalPrice
                       )}

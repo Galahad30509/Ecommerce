@@ -10,6 +10,13 @@ const errorHandler = (err, _req, res, _next) => {
             message: err.message,
         });
     }
+    if (err.name ===
+        'PrismaClientInitializationError') {
+        return res.status(503).json({
+            success: false,
+            message: 'Database unavailable',
+        });
+    }
     return res.status(500).json({
         success: false,
         message: 'Internal Server Error',

@@ -12,22 +12,6 @@ from '../utils/asyncHandler';
 import { AppError }
 from '../utils/AppError';
 
-export const checkout =
-asyncHandler(
-  async (
-    req: Request,
-    res: Response
-  ) => {
-
-    const order =
-      await OrderService.checkout(
-        req.user!.id
-      );
-
-    res.status(201).json(order);
-  }
-);
-
 export const getMyOrders =
 asyncHandler(
   async (

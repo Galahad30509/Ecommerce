@@ -1,0 +1,263 @@
+GET PRODUCTS ERROR => PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+GET PRODUCTS ERROR => PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+GET PRODUCTS ERROR => PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+GET PRODUCTS ERROR => PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+GET PRODUCTS ERROR => PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+GET PRODUCTS ERROR => PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+PrismaClientInitializationError: 
+Invalid `prisma.product.findMany()` invocation in
+C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:51:20
+
+  48 }
+  49 
+  50 const [products, total] = await Promise.all([
+→ 51   prisma.product.findMany(
+Can't reach database server at `yamanote.proxy.rlwy.net:56964`
+
+Please make sure your database server is running at `yamanote.proxy.rlwy.net:56964`.
+    at $n.handleRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:7615)
+    at $n.handleAndLogRequestError (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6623)
+    at $n.request (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:121:6307)
+    at l (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\@prisma\client\runtime\library.js:130:9633)
+    at async Promise.all (index 0)
+    at Object.getAllProducts (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\services\product.service.ts:50:29)
+    at C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\controllers\product.controller.ts:29:9 {
+  clientVersion: '5.22.0',
+  errorCode: undefined
+}
+TypeError: argument handler must be a function
+    at Route.<computed> [as post] (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\router\lib\route.js:228:15)
+    at Function.Router.<computed> [as post] (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\router\index.js:448:19)
+    at Object.<anonymous> (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\src\routes\order.routes.ts:16:8)
+    at Module.<anonymous> (node:internal/modules/cjs/loader:1781:14)
+    at Module._compile (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\source-map-support\source-map-support.js:568:25)
+    at Module.m._compile (C:\Users\Acer\AppData\Local\Temp\ts-node-dev-hook-09624116154400064.js:69:33)
+    at node:internal/modules/cjs/loader:1913:10
+    at require.extensions..jsx.require.extensions..js (C:\Users\Acer\AppData\Local\Temp\ts-node-dev-hook-09624116154400064.js:114:20)
+    at require.extensions.<computed> (C:\Users\Acer\AppData\Local\Temp\ts-node-dev-hook-09624116154400064.js:71:20)
+    at Object.nodeDevHook [as .ts] (C:\Users\Acer\OneDrive - Rajamangala University of Technology Lanna\Desktop\EcommerceReact\server\node_modules\ts-node-dev\lib\hook.js:63:13)

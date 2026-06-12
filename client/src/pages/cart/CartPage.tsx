@@ -60,7 +60,13 @@ export default function CartPage() {
   ] = useState(false);
 
   const loadCart =
-    useCallback(async () => {
+    useCallback(async (
+      showLoading = false
+    ) => {
+      if (showLoading) {
+        setLoading(true);
+      }
+
       try {
         const result =
           await getCart();
@@ -76,8 +82,29 @@ export default function CartPage() {
     }, []);
 
   useEffect(() => {
-    loadCart();
-  }, [loadCart]);
+    let active = true;
+
+    getCart()
+      .then((result) => {
+        if (active) {
+          setCart(result);
+        }
+      })
+      .catch(() => {
+        toast.error(
+          'Cannot load cart'
+        );
+      })
+      .finally(() => {
+        if (active) {
+          setLoading(false);
+        }
+      });
+
+    return () => {
+      active = false;
+    };
+  }, []);
 
   const total =
     useMemo(() => {
@@ -160,7 +187,7 @@ export default function CartPage() {
 
   if (loading) {
     return (
-      <div className="empty-state">
+      <div className="grid min-h-56 place-items-center rounded-lg border border-slate-200 bg-white p-8 text-center text-sm font-bold text-slate-500 shadow-sm">
         Loading cart...
       </div>
     );
@@ -171,12 +198,16 @@ export default function CartPage() {
 
   if (items.length === 0) {
     return (
-      <section className="empty-state">
-        <ShoppingBag size={38} />
-        <h1>Your cart is empty</h1>
+      <section className="grid min-h-72 place-items-center gap-4 rounded-lg border border-slate-200 bg-white p-8 text-center shadow-sm">
+        <span className="grid size-14 place-items-center rounded-lg bg-emerald-50 text-emerald-700 ring-1 ring-emerald-100">
+          <ShoppingBag size={34} />
+        </span>
+        <h1 className="text-2xl font-black tracking-normal text-slate-950">
+          Your cart is empty
+        </h1>
         <Link
           to="/products"
-          className="primary-link"
+          className="inline-flex min-h-11 items-center justify-center rounded-lg bg-emerald-600 px-5 py-2 text-sm font-black text-white shadow-sm transition hover:bg-emerald-700"
         >
           Browse Products
         </Link>
@@ -185,18 +216,18 @@ export default function CartPage() {
   }
 
   return (
-    <section className="page-section cart-layout">
-      <div>
-        <div className="page-heading">
-          <div>
-            <span className="eyebrow">
-              Shopping
-            </span>
-            <h1>Cart</h1>
-          </div>
+    <section className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-start">
+      <div className="grid gap-5">
+        <div>
+          <span className="inline-flex rounded-lg bg-emerald-50 px-3 py-1.5 text-xs font-black uppercase tracking-normal text-emerald-700 ring-1 ring-emerald-100">
+            Shopping
+          </span>
+          <h1 className="mt-3 text-3xl font-black tracking-normal text-slate-950 sm:text-5xl">
+            Cart
+          </h1>
         </div>
 
-        <div className="cart-list">
+        <div className="grid gap-3">
           {items.map((item) => {
             const imageUrl =
               getImageUrl(
@@ -205,36 +236,38 @@ export default function CartPage() {
 
             return (
               <article
-                className="cart-row"
+                className="grid gap-4 rounded-lg border border-slate-200 bg-white p-3 shadow-sm sm:grid-cols-[5rem_minmax(0,1fr)_auto_auto_2.5rem] sm:items-center"
                 key={item.id}
               >
-                <div className="cart-image">
+                <div className="grid size-20 place-items-center overflow-hidden rounded-lg bg-gradient-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400">
                   {imageUrl ? (
                     <img
                       src={imageUrl}
                       alt={
                         item.product.title
                       }
+                      className="h-full w-full object-cover"
                     />
                   ) : (
                     <Package size={30} />
                   )}
                 </div>
 
-                <div className="cart-info">
-                  <h3>
+                <div className="min-w-0">
+                  <h3 className="truncate text-base font-black text-slate-950">
                     {item.product.title}
                   </h3>
-                  <span className="muted">
+                  <span className="text-sm font-bold text-slate-500">
                     {formatPrice(
                       item.product.price
                     )}
                   </span>
                 </div>
 
-                <div className="stepper">
+                <div className="grid h-10 w-fit grid-cols-[2.5rem_4rem_2.5rem] overflow-hidden rounded-lg border border-slate-200 bg-white">
                   <button
                     type="button"
+                    className="grid place-items-center text-emerald-700 transition hover:bg-emerald-50"
                     onClick={() =>
                       updateQuantity(
                         item.id,
@@ -247,6 +280,7 @@ export default function CartPage() {
                   </button>
 
                   <input
+                    className="w-full border-x border-slate-200 text-center text-sm font-black outline-none"
                     type="number"
                     min="1"
                     value={item.quantity}
@@ -262,6 +296,7 @@ export default function CartPage() {
 
                   <button
                     type="button"
+                    className="grid place-items-center text-emerald-700 transition hover:bg-emerald-50"
                     onClick={() =>
                       updateQuantity(
                         item.id,
@@ -274,7 +309,7 @@ export default function CartPage() {
                   </button>
                 </div>
 
-                <strong className="row-price">
+                <strong className="whitespace-nowrap text-sm font-black text-slate-950">
                   {formatPrice(
                     Number(
                       item.product.price
@@ -284,7 +319,7 @@ export default function CartPage() {
 
                 <button
                   type="button"
-                  className="icon-button danger"
+                  className="grid size-10 place-items-center rounded-lg border border-rose-100 bg-rose-50 text-rose-700 transition hover:bg-rose-100"
                   onClick={() =>
                     removeItem(item.id)
                   }
@@ -298,17 +333,19 @@ export default function CartPage() {
         </div>
       </div>
 
-      <aside className="summary-panel">
-        <h2>Summary</h2>
+      <aside className="grid gap-4 rounded-lg border border-slate-200 bg-white p-5 shadow-sm lg:sticky lg:top-24">
+        <h2 className="text-xl font-black text-slate-950">
+          Summary
+        </h2>
 
-        <div className="summary-line">
+        <div className="flex items-center justify-between gap-3 text-sm font-bold text-slate-600">
           <span>Items</span>
-          <strong>
+          <strong className="text-slate-950">
             {items.length}
           </strong>
         </div>
 
-        <div className="summary-line total">
+        <div className="flex items-center justify-between gap-3 border-t border-slate-200 pt-4 text-base font-black text-slate-950">
           <span>Total</span>
           <strong>
             {formatPrice(total)}
@@ -317,7 +354,7 @@ export default function CartPage() {
 
         <button
           type="button"
-          className="primary-button wide-button"
+          className="inline-flex min-h-11 w-full items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2 text-sm font-black text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-50"
           onClick={handleCheckout}
           disabled={checkingOut}
         >

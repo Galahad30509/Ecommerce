@@ -3,10 +3,10 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getOrderById = exports.getMyOrders = exports.checkout = void 0;
+exports.getOrderById = exports.getMyOrders = exports.cancelStripeOrder = exports.markStripeOrderPaid = exports.createPendingOrderFromCart = void 0;
 const db_1 = __importDefault(require("../config/db"));
 const AppError_1 = require("../utils/AppError");
-const checkout = async (userId) => {
+const createPendingOrderFromCart = async (userId, payment) => {
     return db_1.default.$transaction(async (tx) => {
         const cart = await tx.cart.findUnique({
             where: {
@@ -38,6 +38,10 @@ const checkout = async (userId) => {
             data: {
                 userId,
                 totalPrice,
+                paymentStatus: 'PENDING',
+                paymentProvider: 'stripe',
+                stripeSessionId: payment.stripeSessionId,
+                stripePaymentIntentId: payment.stripePaymentIntentId,
             },
         });
         for (const item of cart.items) {
@@ -49,6 +53,47 @@ const checkout = async (userId) => {
                     price: item.product.price,
                 },
             });
+        }
+        return order;
+    });
+};
+exports.createPendingOrderFromCart = createPendingOrderFromCart;
+const markStripeOrderPaid = async (stripeSessionId, stripePaymentIntentId) => {
+    return db_1.default.$transaction(async (tx) => {
+        const order = await tx.order.findUnique({
+            where: {
+                stripeSessionId,
+            },
+            include: {
+                items: {
+                    include: {
+                        product: true,
+                    },
+                },
+            },
+        });
+        if (!order) {
+            throw new AppError_1.AppError('Order not found for Stripe session', 404);
+        }
+        if (order.paymentStatus === 'PAID') {
+            return order;
+        }
+        for (const item of order.items) {
+            const product = await tx.product.findFirst({
+                where: {
+                    id: item.productId,
+                    isDeleted: false,
+                },
+            });
+            if (!product) {
+                throw new AppError_1.AppError('Product not found', 404);
+            }
+            if (item.quantity >
+                product.stock) {
+                throw new AppError_1.AppError(`${product.title} stock not enough`, 400);
+            }
+        }
+        for (const item of order.items) {
             await tx.product.update({
                 where: {
                     id: item.productId,
@@ -62,13 +107,54 @@ const checkout = async (userId) => {
         }
         await tx.cartItem.deleteMany({
             where: {
-                cartId: cart.id,
+                cart: {
+                    userId: order.userId,
+                },
             },
         });
-        return order;
+        return tx.order.update({
+            where: {
+                id: order.id,
+            },
+            data: {
+                paymentStatus: 'PAID',
+                stripePaymentIntentId: stripePaymentIntentId ??
+                    order.stripePaymentIntentId,
+                paidAt: new Date(),
+            },
+            include: {
+                items: {
+                    include: {
+                        product: true,
+                    },
+                },
+            },
+        });
     });
 };
-exports.checkout = checkout;
+exports.markStripeOrderPaid = markStripeOrderPaid;
+const cancelStripeOrder = async (stripeSessionId) => {
+    const order = await db_1.default.order.findUnique({
+        where: {
+            stripeSessionId,
+        },
+    });
+    if (!order) {
+        return null;
+    }
+    if (order.paymentStatus !== 'PENDING') {
+        return order;
+    }
+    return db_1.default.order.update({
+        where: {
+            id: order.id,
+        },
+        data: {
+            paymentStatus: 'CANCELED',
+        },
+    });
+};
+exports.cancelStripeOrder = cancelStripeOrder;
 const getMyOrders = async (userId) => {
     return db_1.default.order.findMany({
         where: {
