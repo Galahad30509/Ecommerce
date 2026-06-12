@@ -1,0 +1,10 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const express_1 = require("express");
+const upload_middleware_1 = require("../middleware/upload.middleware");
+const upload_controller_1 = require("../controllers/upload.controller");
+const auth_middleware_1 = require("../middleware/auth.middleware");
+const admin_middleware_1 = require("../middleware/admin.middleware");
+const router = (0, express_1.Router)();
+router.post('/product', auth_middleware_1.protect, admin_middleware_1.adminOnly, upload_middleware_1.upload.single('image'), upload_controller_1.uploadProductImage);
+exports.default = router;
