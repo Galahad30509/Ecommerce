@@ -45,7 +45,7 @@ export default function AppLayout({
   } = useAuth();
 
   return (
-    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,_rgba(13,148,136,0.16),_transparent_34%),linear-gradient(180deg,_#ffffff_0%,_#f7faf9_44%,_#eef3f1_100%)] text-slate-900 antialiased">
+    <div className="min-h-screen bg-[radial-gradient(circle_at_top_left,rgba(13,148,136,0.16),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7faf9_44%,#eef3f1_100%)] text-slate-900 antialiased">
       <header className="sticky top-0 z-30 border-b border-slate-200/80 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-xl sm:px-6 lg:px-10">
         <div className="mx-auto grid max-w-7xl grid-cols-1 items-center gap-3 lg:grid-cols-[auto_1fr_auto]">
           <Link

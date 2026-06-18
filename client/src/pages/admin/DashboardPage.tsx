@@ -546,7 +546,7 @@ export default function DashboardPage() {
                     className="grid gap-3 p-4 transition hover:bg-slate-50 sm:grid-cols-[4rem_minmax(0,1fr)_auto] sm:items-center"
                     key={product.id}
                   >
-                    <div className="grid size-16 place-items-center overflow-hidden rounded-lg bg-gradient-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400">
+                    <div className="grid size-16 place-items-center overflow-hidden rounded-lg bg-linear-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400">
                       {imageUrl ? (
                         <img
                           src={imageUrl}

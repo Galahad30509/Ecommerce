@@ -31,7 +31,7 @@ export default function ProductCard({
     <article className="group grid overflow-hidden rounded-lg border border-slate-200 bg-white shadow-sm transition hover:-translate-y-1 hover:border-emerald-200 hover:shadow-xl">
       <Link
         to={`/products/${product.id}`}
-        className="grid aspect-[4/3] place-items-center overflow-hidden bg-gradient-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400"
+        className="grid aspect-4/3 place-items-center overflow-hidden bg-linear-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400"
       >
         {imageUrl ? (
           <img

@@ -128,7 +128,7 @@ export default function OrderDetailPage() {
                 className="grid gap-4 rounded-lg border border-slate-200 bg-white p-3 shadow-sm sm:grid-cols-[5rem_minmax(0,1fr)_auto] sm:items-center"
                 key={item.id}
               >
-                <div className="grid size-20 place-items-center overflow-hidden rounded-lg bg-gradient-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400">
+                <div className="grid size-20 place-items-center overflow-hidden rounded-lg bg-linear-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400">
                   {imageUrl ? (
                     <img
                       src={imageUrl}

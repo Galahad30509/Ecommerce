@@ -22,9 +22,9 @@ export default function HomePage() {
         <img
           src={heroImage}
           alt="North & Bogie product display"
-          className="h-full min-h-[420px] w-full object-cover"
+          className="h-full min-h-105 w-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-slate-950/82 via-slate-950/42 to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-r from-slate-950/82 via-slate-950/42 to-transparent" />
 
         <div className="absolute inset-0 flex max-w-2xl flex-col justify-end p-6 sm:p-10">
           <span className="mb-4 inline-flex w-fit items-center gap-2 rounded-lg bg-white/12 px-3 py-1.5 text-xs font-black uppercase tracking-normal text-emerald-100 ring-1 ring-white/20 backdrop-blur">

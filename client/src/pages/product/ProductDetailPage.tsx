@@ -145,7 +145,7 @@ export default function ProductDetailPage() {
         Products
       </Link>
 
-      <div className="grid aspect-square place-items-center overflow-hidden rounded-lg border border-slate-200 bg-gradient-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400 shadow-sm">
+      <div className="grid aspect-square place-items-center overflow-hidden rounded-lg border border-slate-200 bg-linear-to-br from-slate-100 via-teal-50 to-amber-50 text-slate-400 shadow-sm">
         {imageUrl ? (
           <img
             src={imageUrl}
