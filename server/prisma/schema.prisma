@@ -3,20 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
-}
-
-enum Role {
-  USER
-  ADMIN
-}
-
-enum PaymentStatus {
-  PENDING
-  PAID
-  FAILED
-  CANCELED
 }
 
 model User {
@@ -28,7 +16,7 @@ model User {
 
   password  String
 
-  role      Role     @default(USER)
+  role      String   @default("USER")
 
   createdAt DateTime @default(now())
 
@@ -41,7 +29,7 @@ model Product {
   id          Int      @id @default(autoincrement())
   title       String
   description String
-  price       Decimal  @db.Decimal(10,2)
+  price       Float
   stock       Int
   image       String?
 
@@ -64,9 +52,9 @@ model Order {
 
   userId      Int
 
-  totalPrice  Decimal  @db.Decimal(10,2)
+  totalPrice  Float
 
-  paymentStatus PaymentStatus @default(PENDING)
+  paymentStatus String @default("PENDING")
 
   paymentProvider String?
 
@@ -92,7 +80,7 @@ model OrderItem {
 
   quantity  Int
 
-  price     Decimal @db.Decimal(10,2)
+  price     Float
 
   order Order @relation(fields: [orderId], references: [id])
 
@@ -128,3 +116,4 @@ model CartItem {
 
   @@unique([cartId, productId])
 }
+

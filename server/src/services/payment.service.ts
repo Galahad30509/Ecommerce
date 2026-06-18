@@ -1,10 +1,9 @@
-import Stripe from 'stripe';
-
-import prisma from '../config/db';
+﻿import prisma from '../config/db';
 import {
   getClientUrl,
   getStripe,
   getStripeCurrency,
+  isMockPaymentMode,
 } from '../config/stripe';
 
 import { AppError } from '../utils/AppError';
@@ -15,11 +14,28 @@ import {
   markStripeOrderPaid,
 } from './order.service';
 
+type PaymentIntentLike =
+  | string
+  | {
+      id: string;
+    }
+  | null;
+
+type StripeSessionLike = {
+  id: string;
+  payment_status?: string;
+  payment_intent?: PaymentIntentLike;
+};
+
+type StripeEventLike = {
+  type: string;
+  data: {
+    object: StripeSessionLike;
+  };
+};
+
 const getPaymentIntentId = (
-  paymentIntent:
-    | string
-    | Stripe.PaymentIntent
-    | null
+  paymentIntent: PaymentIntentLike
 ) => {
   if (!paymentIntent) {
     return null;
@@ -28,6 +44,12 @@ const getPaymentIntentId = (
   return typeof paymentIntent === 'string'
     ? paymentIntent
     : paymentIntent.id;
+};
+
+const createMockSessionId = (
+  userId: number
+) => {
+  return `mock_${userId}_${Date.now()}`;
 };
 
 export const createCheckoutSession =
@@ -75,14 +97,32 @@ async (
     }
   }
 
-  const currency =
-    getStripeCurrency();
+  const clientUrl = getClientUrl();
 
-  const clientUrl =
-    getClientUrl();
+  if (isMockPaymentMode()) {
+    const sessionId =
+      createMockSessionId(userId);
 
-  const stripe =
-    getStripe();
+    const order =
+      await createPendingOrderFromCart(
+        userId,
+        {
+          stripeSessionId: sessionId,
+          stripePaymentIntentId: null,
+        }
+      );
+
+    return {
+      checkoutUrl:
+        `${clientUrl}/checkout/success?session_id=${sessionId}`,
+      sessionId,
+      orderId: order.id,
+      mode: 'mock',
+    };
+  }
+
+  const currency = getStripeCurrency();
+  const stripe = getStripe();
 
   const lineItems =
     cart.items.map((item) => ({
@@ -131,6 +171,7 @@ async (
     checkoutUrl: session.url,
     sessionId: session.id,
     orderId: order.id,
+    mode: 'stripe',
   };
 };
 
@@ -139,8 +180,15 @@ async (
   userId: number,
   sessionId: string
 ) => {
-  const stripe =
-    getStripe();
+  if (sessionId.startsWith('mock_')) {
+    return markStripeOrderPaid(
+      sessionId,
+      null,
+      userId
+    );
+  }
+
+  const stripe = getStripe();
 
   const session =
     await stripe.checkout.sessions.retrieve(
@@ -170,20 +218,20 @@ async (
     session.id,
     getPaymentIntentId(
       session.payment_intent
-    )
+    ),
+    userId
   );
 };
 
 export const handleStripeWebhook =
 async (
-  event: Stripe.Event
+  event: StripeEventLike
 ) => {
   if (
     event.type ===
     'checkout.session.completed'
   ) {
-    const session =
-      event.data.object as Stripe.Checkout.Session;
+    const session = event.data.object;
 
     if (
       session.payment_status === 'paid'
@@ -191,7 +239,7 @@ async (
       await markStripeOrderPaid(
         session.id,
         getPaymentIntentId(
-          session.payment_intent
+          session.payment_intent || null
         )
       );
     }
@@ -203,8 +251,7 @@ async (
     event.type ===
       'checkout.session.async_payment_failed'
   ) {
-    const session =
-      event.data.object as Stripe.Checkout.Session;
+    const session = event.data.object;
 
     await cancelStripeOrder(
       session.id

@@ -1,4 +1,4 @@
-import prisma from '../config/db';
+﻿import prisma from '../config/db';
 
 import { AppError } from '../utils/AppError';
 
@@ -92,7 +92,8 @@ async (
 export const markStripeOrderPaid =
 async (
   stripeSessionId: string,
-  stripePaymentIntentId?: string | null
+  stripePaymentIntentId?: string | null,
+  userId?: number
 ) => {
   return prisma.$transaction(
     async (tx) => {
@@ -114,6 +115,16 @@ async (
         throw new AppError(
           'Order not found for Stripe session',
           404
+        );
+      }
+
+      if (
+        userId !== undefined &&
+        order.userId !== userId
+      ) {
+        throw new AppError(
+          'Forbidden',
+          403
         );
       }
 

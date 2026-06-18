@@ -1,8 +1,8 @@
-import Stripe from 'stripe';
+﻿import Stripe from 'stripe';
 
 import { AppError } from '../utils/AppError';
 
-let stripeClient: Stripe | null = null;
+let stripeClient: ReturnType<typeof Stripe> | null = null;
 
 export const getStripe = () => {
   const secretKey =
@@ -16,7 +16,7 @@ export const getStripe = () => {
   }
 
   if (!stripeClient) {
-    stripeClient = new Stripe(secretKey);
+    stripeClient = Stripe(secretKey);
   }
 
   return stripeClient;
@@ -29,3 +29,6 @@ export const getStripeCurrency = () =>
 export const getClientUrl = () =>
   process.env.CLIENT_URL ||
   'http://127.0.0.1:5173';
+
+export const isMockPaymentMode = () =>
+  process.env.PAYMENT_MODE === 'mock';

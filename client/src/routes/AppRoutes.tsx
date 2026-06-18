@@ -1,4 +1,4 @@
-import {
+﻿import {
   Route,
   Routes,
 } from 'react-router-dom';
@@ -12,6 +12,8 @@ import ProductDetailPage from '../pages/product/ProductDetailPage';
 import CartPage from '../pages/cart/CartPage';
 import OrdersPage from '../pages/order/OrdersPage';
 import OrderDetailPage from '../pages/order/OrderDetailPage';
+import CheckoutSuccessPage from '../pages/checkout/CheckoutSuccessPage';
+import CheckoutCancelPage from '../pages/checkout/CheckoutCancelPage';
 
 import AdminRoute from './AdminRoute';
 import ProtectedRoute from './ProtectedRoute';
@@ -67,6 +69,24 @@ export default function AppRoutes() {
         element={
           <ProtectedRoute>
             <OrderDetailPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/checkout/success"
+        element={
+          <ProtectedRoute>
+            <CheckoutSuccessPage />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/checkout/cancel"
+        element={
+          <ProtectedRoute>
+            <CheckoutCancelPage />
           </ProtectedRoute>
         }
       />

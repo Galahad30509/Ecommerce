@@ -1,4 +1,4 @@
-import {
+﻿import {
   useCallback,
   useEffect,
   useMemo,
@@ -27,8 +27,8 @@ import {
 } from '../../services/cart.service';
 
 import {
-  checkout,
-} from '../../services/order.service';
+  createCheckoutSession,
+} from '../../services/payment.service';
 
 import type {
   Cart,
@@ -166,19 +166,21 @@ export default function CartPage() {
       setCheckingOut(true);
 
       try {
-        const order =
-          await checkout();
+        const session =
+          await createCheckoutSession();
 
-        toast.success(
-          'Order placed'
-        );
+        if (!session.checkoutUrl) {
+          throw new Error(
+            'Missing checkout URL'
+          );
+        }
 
-        navigate(
-          `/orders/${order.id}`
+        window.location.assign(
+          session.checkoutUrl
         );
       } catch {
         toast.error(
-          'Checkout failed'
+          'Payment failed'
         );
       } finally {
         setCheckingOut(false);
@@ -360,10 +362,12 @@ export default function CartPage() {
         >
           <ShoppingBag size={18} />
           {checkingOut
-            ? 'Checking out...'
+            ? 'Opening payment...'
             : 'Checkout'}
         </button>
       </aside>
     </section>
   );
 }
+
+
